@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FoodOrderingSystem.Pages.PreferencesPage"
+             Visual="Material">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Select Your Preferred Food Content" HorizontalOptions="Center" FontSize="Title"/>
+            <CollectionView
+    x:Name="PreferencesCollectionView"
+    ItemsSource="{Binding FoodPreferences}"
+    SelectionMode="Single">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10">
+                            <Label Text="{Binding}" VerticalOptions="Center"/>
+                            <Switch IsToggled="{Binding Source={x:Reference PreferencesCollectionView}, Path=BindingContext.SelectedPreferences[Key], Mode=TwoWay}"
+        BindingContext="{Binding .}"
+        />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Button Text="Continue" Clicked="OnContinueClicked" HorizontalOptions="Center" FontFamily="PoppinsMedium" BackgroundColor="#F75E08"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

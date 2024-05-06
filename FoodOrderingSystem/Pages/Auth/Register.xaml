@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Visual="Material"
+             xmlns:snack="cls-namespace:Xamarin.CommunityToolkit.UI.Views:assembly=Xamarin.CommunityToolkit"
+             x:Class="FoodOrderingSystem.Pages.Auth.Register">
+
+    <Grid BackgroundColor="#FFFFFF">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label Text="Create an Account" FontSize="24" HorizontalOptions="Center" Margin="0,50,0,20" TextColor="#D14C00" Style="{StaticResource PopBold}"/>
+
+        <Frame Grid.Row="1" Padding="10, 50 ,10, 50" CornerRadius="10" BackgroundColor="#70f86907" HasShadow="False"  Margin="20">
+            <StackLayout>
+                <Entry Text="{Binding User.FullName}" Placeholder="Full Name" x:Name="FullNameEntry" Margin="0,0,0,10" FontFamily="PoppinsRegular" BackgroundColor="#25f86907"/>
+                <Entry Text="{Binding User.Email}" Placeholder="Email" Keyboard="Email" x:Name="EmailEntry" Margin="0,0,0,10" FontFamily="PoppinsRegular" BackgroundColor="#25f86907"/>
+                <Entry Text="{Binding User.Password}" Placeholder="Password" IsPassword="True" x:Name="PasswordEntry" Margin="0,0,0,10" FontFamily="PoppinsRegular" BackgroundColor="#25f86907"/>
+                <Button Text="Register" Clicked="OnRegisterClicked" BackgroundColor="#F75E08" TextColor="White" CornerRadius="25" Padding="6" FontFamily="PoppinsMedium"/>
+                <Label Text="OR" HorizontalOptions="Center" Margin="0,10" TextColor="#D14C00" Style="{StaticResource PopMedium}"/>
+                <Button Text="Login" Clicked="OnBackToLoginClicked" BackgroundColor="#F75E08" TextColor="White" CornerRadius="25" Padding="6" FontFamily="PoppinsMedium"/>
+            </StackLayout>
+        </Frame>
+
+    </Grid>
+</ContentPage>

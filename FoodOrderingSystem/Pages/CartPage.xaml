@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+             Visual="Material"
+             x:Class="FoodOrderingSystem.Pages.CartPage">
+    <StackLayout Spacing="0">
+        <StackLayout Orientation="Horizontal" Spacing="20" BackgroundColor="#25f86907" Padding="10,8,8,8" Margin="0">
+            <Frame CornerRadius="50" BackgroundColor="Transparent" Padding="5" HasShadow="False">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnBackButtonClicked" />
+                </Frame.GestureRecognizers>
+                <Label Text="&#xe5c4;" TextColor="#D14C00" FontFamily="MaterialIconRounded" FontSize="28" VerticalOptions="Center" HorizontalOptions="Center" />
+            </Frame>
+            <Label Text="Cart" TextColor="#D14C00" Style="{StaticResource PopBold}" FontSize="Title" VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Center"/>
+        </StackLayout>
+        <RefreshView IsRefreshing="{Binding IsRefreshing, Mode=OneWay}" Command="{Binding RefreshCommand}">
+            <CollectionView ItemsSource="{Binding CartS}" SelectionMode="None" BackgroundColor="White">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate >
+                        <Frame CornerRadius="10" Padding="5" Margin="10" HasShadow="False" BackgroundColor="#25f86907">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <CheckBox Grid.Column="0" Grid.RowSpan="2" VerticalOptions="Center" IsChecked="{Binding IsChecked}" Color="Accent" CheckedChanged="OnCheckBoxCheckedChanged" />
+
+                                <ffimageloading:SvgCachedImage Grid.RowSpan="2" Grid.Column="1" Source="{Binding ImageUrl}"
+                LoadingPlaceholder="loading_food.gif"
+                Aspect="AspectFill"
+                WidthRequest="80"
+                HeightRequest="80"/>
+
+                                <StackLayout Grid.Column="2" Orientation="Vertical" Margin="10">
+                                    <Label Text="{Binding Name}" Style="{StaticResource PopBold}" FontSize="16" LineBreakMode="TailTruncation"/>
+                                    <Label Grid.Row="1" Text="{Binding Price, StringFormat='Price: {0:C}'}" FontSize="14" TextColor="#f86907" Style="{StaticResource PopBold}"/>
+                                </StackLayout>
+                                <StackLayout HeightRequest="15" Orientation="Horizontal" Padding="5" Grid.Column="2" Grid.Row="1"
+                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0}"
+                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-50}"
+                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width}"
+                RelativeLayout.HeightConstraint="{ConstraintExpression Type=Constant, Constant=50}">
+                                    <Button Text="-" BackgroundColor="#FFAF45" TextColor="White" Clicked="OnMinusItemCliked" FontFamily="PoppinsBold"/>
+                                    <Label Text="{Binding Quantity}" FontSize="16" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" TextColor="Black" Style="{StaticResource PopMedium}"/>
+                                    <Button Text="+" BackgroundColor="#FFAF45" TextColor="White" Clicked="OnAddItemCliked" FontFamily="PoppinsBold" />
+                                    <Label Text="{Binding Total}" IsVisible="False"/>
+
+                                </StackLayout>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+        <StackLayout Orientation="Horizontal" Padding="5"
+             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0}"
+             RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-50}"
+             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width}"
+             RelativeLayout.HeightConstraint="{ConstraintExpression Type=Constant, Constant=50}">
+
+            <Label x:Name="ItemLabel" Text="{Binding TotalPrice, StringFormat='Total: {0:C}'}" FontSize="16" HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand" TextColor="#F75E08" Style="{StaticResource PopMedium}"/>
+
+            <Button Text="buy" Clicked="OnBuyCliked" BackgroundColor="#F75E08" TextColor="White" FontFamily="PoppinsBold"/>
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

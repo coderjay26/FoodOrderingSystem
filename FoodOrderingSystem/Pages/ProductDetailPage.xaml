@@ -1,0 +1,54 @@
+﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:FoodOrderingSystem.Pages"
+             Visual="Material"
+             x:Class="FoodOrderingSystem.Pages.ProductDetailPage"
+             >
+    
+    <Grid RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="95" />
+        </Grid.RowDefinitions>
+        <StackLayout Orientation="Horizontal" Spacing="20" BackgroundColor="#25f86907" Padding="10" Margin="0">
+            <Frame CornerRadius="50" BackgroundColor="Transparent" HasShadow="False" Padding="5" HeightRequest="5">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnBackButtonClicked" />
+                </Frame.GestureRecognizers>
+                <Label Text="&#xef7d;" TextColor="#D14C00" FontFamily="MaterialIconRounded" FontSize="28"/>
+            </Frame>
+            <Label Text="{Binding Name}" TextColor="#D14C00" Style="{StaticResource PopBold}" FontSize="Title" VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Center"/>
+        </StackLayout>
+        <ScrollView Grid.Row="1" VerticalScrollBarVisibility="Never" Margin="0">
+            <StackLayout>
+                <StackLayout BackgroundColor="#25f86907" Padding="10">
+                    <StackLayout Padding="20, 30, 20, 30">
+                        <Image Source="{Binding ImageUrl}" Aspect="AspectFit" HeightRequest="180" />
+                    </StackLayout>
+                    
+                </StackLayout>
+                <StackLayout Padding="10">
+                    <Label Text="{Binding Description}" FontSize="16" Margin="0,0,0,10" Style="{StaticResource PopRegular}" TextColor="#D14C00" HorizontalTextAlignment="Start"/>
+                    <Label Text="{Binding Price, StringFormat='{0:C}'}" FontSize="18" Margin="0,0,0,10" Style="{StaticResource PopBold}"/>
+                    
+                </StackLayout>
+                
+            </StackLayout>
+        </ScrollView>
+        <StackLayout Grid.Row="2">
+            <StackLayout Orientation="Horizontal" Padding="10, 0">
+                <Button Text="-" BackgroundColor="#F75E08"  WidthRequest="50" TextColor="White" Clicked="OnMinusItemCliked" BorderWidth="0" FontAttributes="Bold" FontSize="16" VerticalOptions="CenterAndExpand"/>
+                <Label x:Name="ItemLabel" Text="1" FontSize="16" VerticalOptions="CenterAndExpand" TextColor="Black" Style="{StaticResource PopRegular}" />
+                <Button Text="+" BackgroundColor="#F75E08" WidthRequest="50" TextColor="White" Clicked="OnAddItemCliked" FontAttributes="Bold" FontSize="16" VerticalOptions="CenterAndExpand" />
+            </StackLayout>
+            <Frame  CornerRadius="120" HorizontalOptions="CenterAndExpand" Padding="8" BackgroundColor="#F75E08" WidthRequest="300" Margin="5">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnAddToCartClicked"/>
+                </Frame.GestureRecognizers>
+                <Label Text="Add to Cart" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" TextColor="White" FontSize="18" Style="{StaticResource PopRegular}"/>
+            </Frame>
+        </StackLayout>
+        
+    </Grid>
+</ContentPage>

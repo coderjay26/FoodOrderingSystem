@@ -1,0 +1,16 @@
+D:\GitHub\FoodOrderingSystem\FoodOrderingSystem\bin\Release\netstandard2.0\FoodOrderingSystem.deps.json
+D:\GitHub\FoodOrderingSystem\FoodOrderingSystem\bin\Release\netstandard2.0\FoodOrderingSystem.dll
+D:\GitHub\FoodOrderingSystem\FoodOrderingSystem\bin\Release\netstandard2.0\ref\FoodOrderingSystem.dll
+D:\GitHub\FoodOrderingSystem\FoodOrderingSystem\bin\Release\netstandard2.0\FoodOrderingSystem.pdb
+D:\GitHub\FoodOrderingSystem\FoodOrderingSystem\obj\Release\netstandard2.0\FoodOrderingSystem.csproj.AssemblyReference.cache
+D:\GitHub\FoodOrderingSystem\FoodOrderingSystem\obj\Release\netstandard2.0\FoodOrderingSystem.GeneratedMSBuildEditorConfig.editorconfig
+D:\GitHub\FoodOrderingSystem\FoodOrderingSystem\obj\Release\netstandard2.0\App.xaml.g.cs
+D:\GitHub\FoodOrderingSystem\FoodOrderingSystem\obj\Release\netstandard2.0\MainPage.xaml.g.cs
+D:\GitHub\FoodOrderingSystem\FoodOrderingSystem\obj\Release\netstandard2.0\FoodOrderingSystem.AssemblyInfoInputs.cache
+D:\GitHub\FoodOrderingSystem\FoodOrderingSystem\obj\Release\netstandard2.0\FoodOrderingSystem.AssemblyInfo.cs
+D:\GitHub\FoodOrderingSystem\FoodOrderingSystem\obj\Release\netstandard2.0\FoodOrderingSystem.csproj.CoreCompileInputs.cache
+D:\GitHub\FoodOrderingSystem\FoodOrderingSystem\obj\Release\netstandard2.0\XamlC.stamp
+D:\GitHub\FoodOrderingSystem\FoodOrderingSystem\obj\Release\netstandard2.0\FoodOrderingSystem.dll
+D:\GitHub\FoodOrderingSystem\FoodOrderingSystem\obj\Release\netstandard2.0\refint\FoodOrderingSystem.dll
+D:\GitHub\FoodOrderingSystem\FoodOrderingSystem\obj\Release\netstandard2.0\FoodOrderingSystem.pdb
+D:\GitHub\FoodOrderingSystem\FoodOrderingSystem\obj\Release\netstandard2.0\Page\SplashScreen.xaml.g.cs

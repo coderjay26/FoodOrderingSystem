@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FoodOrderingSystem.Pages.MyAddress"
+             Visual="Material">
+    <ContentPage.Content>
+        <Grid RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="60"/>
+            </Grid.RowDefinitions>
+            <StackLayout Grid.Row="0" Margin="0" Spacing="0" Padding="10" BackgroundColor="#25f86907">
+                <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Margin="0,30,0,0">
+                    <Frame CornerRadius="60" BorderColor="Transparent" HasShadow="False" HeightRequest="120" WidthRequest="120" Padding="0" Margin="0,0,0,20">
+                        <Image Source="side" Aspect="AspectFill"/>
+                    </Frame>
+                </StackLayout>
+                <Label x:Name="uName" Text="My Address" FontSize="24" HorizontalOptions="CenterAndExpand" TextColor="#D14C00" Style="{StaticResource PopBold}" HorizontalTextAlignment="Center"/>
+            </StackLayout>
+            <StackLayout Grid.Row="1" Padding="10">
+
+                <Entry x:Name="Purok" Placeholder="Address Line 1 / Purok" Style="{StaticResource PopRegular}" FontSize="Body" TextColor="Black" BackgroundColor="#15f86907"/>
+
+
+                <Entry x:Name="Barangay" Placeholder="Address Line 2 / Barangay" Style="{StaticResource PopRegular}" FontSize="Body" TextColor="Black" BackgroundColor="#15f86907"/>
+
+
+                <Entry x:Name="City" Placeholder="City / Municipality" Style="{StaticResource PopRegular}" FontSize="Body" TextColor="Black" BackgroundColor="#15f86907"/>
+
+
+                <Entry x:Name="Province" Placeholder="Province" Style="{StaticResource PopRegular}" FontSize="Body" TextColor="Black" BackgroundColor="#15f86907"/>
+
+                <Entry x:Name="ZipCode" Placeholder="Zip Code" Style="{StaticResource PopRegular}" FontSize="Body" TextColor="Black" BackgroundColor="#15f86907"/>
+
+            </StackLayout>
+            <Frame  CornerRadius="120" HorizontalOptions="CenterAndExpand" Padding="8" BackgroundColor="#F75E08" WidthRequest="300" Margin="5" Grid.Row="2">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnSaveAddress"/>
+                </Frame.GestureRecognizers>
+                <Label Text="Save" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" TextColor="White" FontSize="18" Style="{StaticResource PopRegular}"/>
+            </Frame>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

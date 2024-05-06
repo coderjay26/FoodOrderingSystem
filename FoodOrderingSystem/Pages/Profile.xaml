@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FoodOrderingSystem.Pages.Profile"
+             Visual="Material">
+    <ContentPage.Content>
+        <Grid RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <StackLayout Grid.Row="1" Margin="0" Spacing="0" Padding="10" BackgroundColor="#25f86907">
+                <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Margin="0,30,0,0">
+                    <Frame CornerRadius="60" BorderColor="Transparent" HasShadow="False" HeightRequest="120" WidthRequest="120" Padding="0" Margin="0,0,0,20">
+                        <Image Source="side" Aspect="AspectFill"/>
+                    </Frame>
+                </StackLayout>
+                <Label x:Name="uName" Text="Mrs. Banan" FontSize="24" HorizontalOptions="CenterAndExpand" TextColor="#D14C00" Style="{StaticResource PopBold}" HorizontalTextAlignment="Center"/>
+            </StackLayout>
+            <StackLayout Grid.Row="2" Padding="10">
+                <Frame Padding="10, 10, 10, 10" BackgroundColor="#15f86907" HasShadow="False" CornerRadius="10">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnMyOrdersClicked"/>
+                    </Frame.GestureRecognizers>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="My Orders" Style="{StaticResource PopRegular}" FontSize="Body" TextColor="Black"/>
+                        <Label Text="&#xe5cc;" TextColor="Black" FontFamily="MaterialIconRounded" FontSize="28" HorizontalOptions="EndAndExpand"/>
+                    </StackLayout>
+                </Frame>
+                <Frame Padding="10, 10, 10, 10" BackgroundColor="#15f86907" HasShadow="False" CornerRadius="10">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnMyAdressClicked"/>
+                    </Frame.GestureRecognizers>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="My Address" Style="{StaticResource PopRegular}" FontSize="Body" TextColor="Black"/>
+                        <Label Text="&#xe5cc;" TextColor="Black" FontFamily="MaterialIconRounded" FontSize="28" HorizontalOptions="EndAndExpand"/>
+                    </StackLayout>
+                </Frame>
+                <Frame Padding="10, 10, 10, 10" BackgroundColor="#15f86907" HasShadow="False" CornerRadius="10">
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="FAQ" Style="{StaticResource PopRegular}" FontSize="Body" TextColor="Black"/>
+                        <Label Text="&#xe5cc;" TextColor="Black" FontFamily="MaterialIconRounded" FontSize="28" HorizontalOptions="EndAndExpand"/>
+                    </StackLayout>
+                </Frame>
+                <Frame Padding="10, 10, 10, 10" BackgroundColor="#15f86907" HasShadow="False" CornerRadius="10">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnLogoutClicked"/>
+                    </Frame.GestureRecognizers>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Exit" Style="{StaticResource PopRegular}" FontSize="Body" TextColor="Black"/>
+                        <Label Text="&#xe5cc;" TextColor="Black" FontFamily="MaterialIconRounded" FontSize="28" HorizontalOptions="EndAndExpand"/>
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

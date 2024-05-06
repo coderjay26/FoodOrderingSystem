@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+             x:Class="FoodOrderingSystem.Pages.OrderPage"
+             NavigationPage.HasNavigationBar="False"
+             >
+    <StackLayout Padding="8, 5">
+        <RefreshView IsRefreshing="{Binding IsRefreshing, Mode=OneWay}" Command="{Binding RefreshCommand}">
+            <CollectionView ItemsSource="{Binding CartLists}" SelectionMode="None">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate >
+                        <Frame CornerRadius="10" Padding="5" Margin="10" HasShadow="False" BackgroundColor="#15f86907">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <ffimageloading:SvgCachedImage Grid.RowSpan="2" Grid.Column="1" Source="{Binding ImageUrl}"
+            LoadingPlaceholder="loading_food.gif"
+            Aspect="AspectFill"
+            WidthRequest="50"
+            HeightRequest="50"/>
+
+                                <StackLayout Grid.Column="2" Orientation="Vertical" Margin="0" >
+                                    <Label Text="{Binding Name}" Style="{StaticResource PopBold}" FontSize="16" LineBreakMode="TailTruncation"/>
+                                    <Label Grid.Row="1" Text="{Binding Price, StringFormat='Price: {0:C}'}" FontSize="14" TextColor="#D14C00" Style="{StaticResource PopBold}"/>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="Quantity: " FontSize="14" VerticalOptions="CenterAndExpand" TextColor="Black" Style="{StaticResource PopMedium}"/>
+                                        <Label Text="{Binding Quantity}" FontSize="14" VerticalOptions="CenterAndExpand" Style="{StaticResource PopBold}" TextColor="Black" />
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="Status: " FontSize="14" VerticalOptions="CenterAndExpand" TextColor="Black" Style="{StaticResource PopMedium}"/>
+                                        <Label Text="{Binding Status}" FontSize="14" VerticalOptions="CenterAndExpand" Style="{StaticResource PopBold}" TextColor="#29c62c" />
+                                    </StackLayout>
+                                </StackLayout>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+        <StackLayout Orientation="Horizontal" Padding="5"
+         RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0}"
+         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-50}"
+         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width}"
+         RelativeLayout.HeightConstraint="{ConstraintExpression Type=Constant, Constant=50}">
+
+            <Label x:Name="ItemLabel" Text="{Binding TotalPrice, StringFormat='Total: {0:C}'}" FontSize="16" HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand" Style="{StaticResource PopMedium}"  TextColor="#F75E08" />
+
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

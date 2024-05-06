@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:pages="clr-namespace:FoodOrderingSystem.Pages"
+       x:Class="FoodOrderingSystem.AppShell" BackgroundColor="Transparent"
+       >
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Style x:Key="PopRegular" TargetType="Label">
+                <Setter Property="FontFamily" Value="PoppinsRegular"/>
+            </Style>
+            <Style TargetType="TabBar">
+                <Setter Property="Shell.TabBarBackgroundColor" Value="White" />
+                <Setter Property="Shell.TabBarTitleColor" Value="#F75E08" />
+            </Style>
+            <Color x:Key="NavigationPrimary">#FF4500</Color>
+            <Style x:Key="BaseStyle" TargetType="Element">
+                <Setter Property="Shell.BackgroundColor" Value="White" />
+                <Setter Property="Shell.ForegroundColor" Value="Black" />
+                <Setter Property="Shell.TitleColor" Value="Black" />
+                <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
+                <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
+            </Style>
+            <Style TargetType="Shell" BasedOn="{StaticResource BaseStyle}" />
+            <Style TargetType="NavigationPage" >
+                <Setter Property="BackgroundColor" Value="{StaticResource NavigationPrimary}" />
+            </Style>
+        </ResourceDictionary>
+    </Shell.Resources>
+
+    <TabBar x:Name="tabbar">
+        <Tab Title="Home" Icon="ic_home.xml">
+            <ShellContent ContentTemplate="{DataTemplate pages:MainPage}" />
+        </Tab>
+        <Tab Title="Order" Icon="round_shopping_cart.xml">
+            <ShellContent ContentTemplate="{DataTemplate pages:OrderPage}" />
+        </Tab>
+        <Tab Title="Account" Icon="twotone_person.xml">
+            <ShellContent ContentTemplate="{DataTemplate pages:Profile}" />
+        </Tab>
+    </TabBar>
+</Shell>
