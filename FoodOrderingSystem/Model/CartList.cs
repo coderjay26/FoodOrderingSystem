@@ -15,5 +15,6 @@ namespace FoodOrderingSystem.Model
         public bool IsChecked { get; set; }
         public string Status { get; set; }
         public bool IsActive { get; set; }
+        public int UserRating {  get; set; }
     }
 }

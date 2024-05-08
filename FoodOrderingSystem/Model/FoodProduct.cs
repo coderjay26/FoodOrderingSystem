@@ -12,6 +12,7 @@ namespace FoodOrderingSystem.Model
         public decimal Price { get; set; }
         public string Ingredients {  get; set; } 
         public string Description { get; set; }
+        public int Rate { get; set; }
     }
 
 }

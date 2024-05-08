@@ -61,8 +61,17 @@ namespace FoodOrderingSystem.Pages
                 OnPropertyChanged(nameof(FoodProducts));
             }
         }
-   
 
+        private int _userRating;
+        public int UserRating
+        {
+            get { return _userRating; }
+            set
+            {
+                _userRating = value;
+                OnPropertyChanged(nameof(UserRating));
+            }
+        }
 
         public MainPage()
         {
@@ -71,10 +80,11 @@ namespace FoodOrderingSystem.Pages
             IsRefreshing = true; // Show refreshing animation
             CheckAndLoadDataAsync();
         }
-        private void FilterFoodItems()
+        private async void FilterFoodItems()
         {
             try
             {
+                //await FetchAllData();
                 if (string.IsNullOrWhiteSpace(SearchText))
                 {
 
@@ -92,7 +102,7 @@ namespace FoodOrderingSystem.Pages
                 OnPropertyChanged(nameof(FoodProducts));
             }catch (Exception ex)
             {
-                DisplayAlert("Error", "Failed to fetch data", "OK");
+                await DisplayAlert("Error", "Failed to fetch data", "OK");
             }
             finally
             {
@@ -100,6 +110,80 @@ namespace FoodOrderingSystem.Pages
             }
            
         }
+        private async void FiteredOnCLick(object sender, EventArgs e)
+        {
+            try
+            {
+                //await FetchAllData();
+                if (string.IsNullOrWhiteSpace(SearchText))
+                {
+
+                    FoodProducts = _foodProducts;
+                    Result.Text = $"Best Food For You";
+                }
+                else
+                {
+                    await FetchAllData();
+                    FoodProducts = _foodProducts
+                        .Where(p => p.Name.ToLower().Contains(SearchText.ToLower()))
+                        .ToList();
+                    Result.Text = $"Result for {SearchText}";
+                }
+
+                OnPropertyChanged(nameof(FoodProducts));
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", "Failed to fetch data", "OK");
+            }
+            finally
+            {
+                OnPropertyChanged(nameof(FoodProducts));
+            }
+        }
+        private async Task FetchAllData()
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    if (string.IsNullOrWhiteSpace(email))
+                    {
+                        email = SecureStorage.GetAsync("email").Result;
+                    }
+                    var response = await client.GetAsync($"{APIURL.apiurl}/getfoods.php");
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var content = await response.Content.ReadAsStringAsync();
+                        var data = JsonConvert.DeserializeObject<FoodResponse>(content);
+                        FoodProducts = data.Data.Select(foodData => new FoodProduct
+                        {
+                            Id = foodData.Id,
+                            Name = foodData.FoodName,
+                            ImageUrl = APIURL.apiurl + foodData.ImageUrl,
+                            Price = foodData.Price,
+                            Ingredients = foodData.Ingredients,
+                            Description = foodData.Description,
+                            Rate = foodData.Rate
+                        }).ToList();
+                        OnPropertyChanged(nameof(FoodProducts));
+                    }
+                    else
+                    {
+                        await DisplayAlert("Error", "Failed to fetch data", "OK");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", ex.Message, "OK");
+            }
+            finally
+            {
+                IsRefreshing = false; // Hide refreshing animation
+            }
+        }
+
 
         private async Task FetchData()
         {
@@ -125,6 +209,7 @@ namespace FoodOrderingSystem.Pages
                             Price = foodData.Price,
                             Ingredients = foodData.Ingredients,
                             Description = foodData.Description,
+                            Rate = foodData.Rate
                         }).ToList();
                         FilterFoodItems();
                     }
@@ -136,7 +221,7 @@ namespace FoodOrderingSystem.Pages
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", "Failed to fetch data", "OK");
+                await DisplayAlert("Error",ex.Message, "OK");
             }
             finally
             {

@@ -51,7 +51,16 @@ namespace FoodOrderingSystem.Pages
                   OnPropertyChanged(nameof(_totalPrice));
                 }
         }
-
+        private int _userRating;
+        public int UserRating
+        {
+            get { return _userRating; }
+            set
+            {
+                _userRating = value;
+                OnPropertyChanged(nameof(UserRating));
+            }
+        }
         public OrderPage()
         {
             InitializeComponent();
@@ -79,12 +88,14 @@ namespace FoodOrderingSystem.Pages
                         var data = JsonConvert.DeserializeObject<CartResponse>(content);
                         CartLists = data.Data.Select(x => new CartList
                         {
+                            Id = x.Id,
                             Name = x.FoodName,
                             Price = x.Price,
                             Quantity = x.Quantity,
                             ImageUrl = APIURL.apiurl + x.ImageUrl,
                             Status = x.Status,
                             Total = x.Total,
+                            UserRating = x.UserRating,
                         }).ToList();
                         CalculateTotalPrice();
                     }
@@ -118,5 +129,52 @@ namespace FoodOrderingSystem.Pages
             var totalPrice = TotalPrice.ToString("C");
             ItemLabel.Text = $"Total: {totalPrice}";
         }
+        async void OnStarClicked(object sender, EventArgs e)
+        {
+            var button = (Label)sender;
+            int rating = int.Parse(button.ClassId);
+            int productId = ((CartList)button.BindingContext).Id; // Get the product ID from the BindingContext
+            
+            try
+            {
+                if (string.IsNullOrWhiteSpace(email))
+                {
+                    email = SecureStorage.GetAsync("email").Result;
+                }
+                using (HttpClient client = new HttpClient())
+                {
+                    var data = new { Rating = rating, Id = productId, Email = email }; // Include the product ID in the data object
+
+                    string json = JsonConvert.SerializeObject(data);
+                    StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                    HttpResponseMessage response = await client.PostAsync($"{APIURL.apiurl}rateProduct.php", content);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        IsRefreshing = true;
+                        // Display a success message
+                        Console.WriteLine(response.Content);
+                        await DisplayAlert("Success", "Product rated successfully", "Ok");
+                       
+                    }
+                    else
+                    {
+                        // Display an error message
+                        await DisplayAlert("Error", "Failed to rate product", "Ok");
+                    }
+                };
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", "Failed to connect", "Ok");
+            }
+            finally
+            {
+                IsRefreshing = false;  OnPropertyChanged(nameof(UserRating));
+            
+        }
+        }
+
+
     }
 }

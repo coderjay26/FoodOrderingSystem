@@ -1,15 +1,21 @@
 ﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:ffimageloading="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+             xmlns:local="clr-namespace:FoodOrderingSystem.Model"
              x:Class="FoodOrderingSystem.Pages.MainPage">
-
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:RatingToColorConverter x:Key="RatingToColor"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
+        
         <StackLayout
                      Padding="0, 0, 0, 0">
             <StackLayout
                 Margin="0, 0, 0, 0"
                 BackgroundColor="White">
                 <StackLayout Orientation="Horizontal" BackgroundColor="#25f86907" Padding="0, 5, 0,10">
-                    <SearchBar Placeholder="Search for food..." Text="{Binding SearchText, Mode=TwoWay}" WidthRequest="300" FontFamily="PoppinsRegular"/>
+                    <SearchBar Placeholder="Search for food..." Text="{Binding SearchText, Mode=TwoWay}" WidthRequest="300" FontFamily="PoppinsRegular" SearchButtonPressed="FiteredOnCLick"/>
                     <Label Text="&#xe8cc;" FontFamily="MaterialIconRounded" VerticalOptions="CenterAndExpand" FontSize="28" TextColor="#D14C00" HorizontalOptions="EndAndExpand" Margin="0,0,10,0">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnCartClicked"/>
@@ -35,10 +41,25 @@
                                            LoadingPlaceholder="loading_food.gif"
                                            Aspect="AspectFill"
                                            WidthRequest="110"
-                                           HeightRequest="155"/>
+                                           HeightRequest="155" />
 
                                         <Label Grid.Row="1" Text="{Binding Name}" Style="{StaticResource PopBold}" FontSize="16" LineBreakMode="TailTruncation" WidthRequest="150" Margin="0" TextColor="Black"/>
-                                        <Label Grid.Row="2" Text="{Binding Price, StringFormat='{0:C}'}" FontSize="14" TextColor="#f86907" Style="{StaticResource PopBold}"/>
+                                        <StackLayout Grid.Row="2" Orientation="Horizontal">
+                                            <Label Text="{Binding Price, StringFormat='{0:C}'}" FontSize="14" TextColor="#f86907" Style="{StaticResource PopBold}"/>
+                                            <StackLayout Orientation="Horizontal" Padding="0,5,0,0" HorizontalOptions="EndAndExpand">
+                                                <Label Text="&#xe885;" FontFamily="MaterialIconRounded" FontSize="Caption" ClassId="1" TextColor="{Binding Rate, Converter={StaticResource RatingToColor}, ConverterParameter='1'}">
+                                                </Label>
+                                                <Label Text="&#xe885;" FontFamily="MaterialIconRounded" FontSize="Caption" ClassId="2" TextColor="{Binding Rate, Converter={StaticResource RatingToColor}, ConverterParameter='2'}">
+                                                </Label>
+                                                <Label Text="&#xe885;" FontFamily="MaterialIconRounded" FontSize="Caption" ClassId="3" TextColor="{Binding Rate, Converter={StaticResource RatingToColor}, ConverterParameter='3'}">
+                                                </Label>
+                                                <Label Text="&#xe885;" FontFamily="MaterialIconRounded" FontSize="Caption" ClassId="4" TextColor="{Binding Rate, Converter={StaticResource RatingToColor}, ConverterParameter='4'}">
+                                                </Label>
+                                                <Label Text="&#xe885;" FontFamily="MaterialIconRounded" FontSize="Caption" ClassId="5" TextColor="{Binding Rate, Converter={StaticResource RatingToColor}, ConverterParameter='5'}">
+                                                </Label>
+                                            </StackLayout>
+                                        </StackLayout>
+                                        
                                     </Grid>
                                 </Frame>
                             </DataTemplate>

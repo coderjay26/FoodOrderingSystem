@@ -1,10 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:FoodOrderingSystem.Model"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
              x:Class="FoodOrderingSystem.Pages.OrderPage"
+             Visual="Material"
              NavigationPage.HasNavigationBar="False"
              >
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:RatingToColorConverter x:Key="RatingToColor"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <StackLayout Padding="8, 5">
         <RefreshView IsRefreshing="{Binding IsRefreshing, Mode=OneWay}" Command="{Binding RefreshCommand}">
             <CollectionView ItemsSource="{Binding CartLists}" SelectionMode="None">
@@ -13,11 +20,10 @@
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate >
-                        <Frame CornerRadius="10" Padding="5" Margin="10" HasShadow="False" BackgroundColor="#15f86907">
+                        <Frame CornerRadius="10" Padding="5" Margin="10, 5,5,0" HasShadow="False" BackgroundColor="#15f86907">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
-                                    
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
@@ -25,10 +31,10 @@
                                 </Grid.ColumnDefinitions>
 
                                 <ffimageloading:SvgCachedImage Grid.RowSpan="2" Grid.Column="1" Source="{Binding ImageUrl}"
-            LoadingPlaceholder="loading_food.gif"
-            Aspect="AspectFill"
-            WidthRequest="50"
-            HeightRequest="50"/>
+                            LoadingPlaceholder="loading_food.gif"
+                            Aspect="AspectFill"
+                            WidthRequest="50"
+                            HeightRequest="50"/>
 
                                 <StackLayout Grid.Column="2" Orientation="Vertical" Margin="0" >
                                     <Label Text="{Binding Name}" Style="{StaticResource PopBold}" FontSize="16" LineBreakMode="TailTruncation"/>
@@ -41,22 +47,47 @@
                                         <Label Text="Status: " FontSize="14" VerticalOptions="CenterAndExpand" TextColor="Black" Style="{StaticResource PopMedium}"/>
                                         <Label Text="{Binding Status}" FontSize="14" VerticalOptions="CenterAndExpand" Style="{StaticResource PopBold}" TextColor="#29c62c" />
                                     </StackLayout>
+                                    <StackLayout Orientation="Horizontal" Padding="0,5,0,0">
+                                        <Label Text="&#xe885;" FontFamily="MaterialIconRounded" FontSize="Title" ClassId="1" TextColor="{Binding UserRating, Converter={StaticResource RatingToColor}, ConverterParameter='1'}">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="OnStarClicked" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                        <Label Text="&#xe885;" FontFamily="MaterialIconRounded" FontSize="Title" ClassId="2" TextColor="{Binding UserRating, Converter={StaticResource RatingToColor}, ConverterParameter='2'}">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="OnStarClicked" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                        <Label Text="&#xe885;" FontFamily="MaterialIconRounded" FontSize="Title" ClassId="3" TextColor="{Binding UserRating, Converter={StaticResource RatingToColor}, ConverterParameter='3'}">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="OnStarClicked" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                        <Label Text="&#xe885;" FontFamily="MaterialIconRounded" FontSize="Title" ClassId="4" TextColor="{Binding UserRating, Converter={StaticResource RatingToColor}, ConverterParameter='4'}">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="OnStarClicked" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                        <Label Text="&#xe885;" FontFamily="MaterialIconRounded" FontSize="Title" ClassId="5" TextColor="{Binding UserRating, Converter={StaticResource RatingToColor}, ConverterParameter='5'}">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="OnStarClicked" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                    </StackLayout>
                                 </StackLayout>
                             </Grid>
                         </Frame>
                     </DataTemplate>
-
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </RefreshView>
         <StackLayout Orientation="Horizontal" Padding="5"
-         RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0}"
-         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-50}"
-         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width}"
-         RelativeLayout.HeightConstraint="{ConstraintExpression Type=Constant, Constant=50}">
-
+                 RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0}"
+                 RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-50}"
+                 RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width}"
+                 RelativeLayout.HeightConstraint="{ConstraintExpression Type=Constant, Constant=50}">
             <Label x:Name="ItemLabel" Text="{Binding TotalPrice, StringFormat='Total: {0:C}'}" FontSize="16" HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand" Style="{StaticResource PopMedium}"  TextColor="#F75E08" />
-
         </StackLayout>
     </StackLayout>
+
 </ContentPage>
