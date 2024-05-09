@@ -10,6 +10,8 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.CommunityToolkit.Extensions;
+using Xamarin.CommunityToolkit.UI.Views.Options;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -134,7 +136,29 @@ namespace FoodOrderingSystem.Pages
             var button = (Label)sender;
             int rating = int.Parse(button.ClassId);
             int productId = ((CartList)button.BindingContext).Id; // Get the product ID from the BindingContext
-            
+            if(((CartList)button.BindingContext).Status != "Out for delivery")
+            {
+                var action = new SnackBarActionOptions
+                {
+                    Font = Font.OfSize("PoppinsMedium", 14),
+                    ForegroundColor = Color.White,
+                    Text = "Ok",
+                };
+                var options = new SnackBarOptions
+                {
+                    MessageOptions = new MessageOptions
+                    {
+                        Font = Font.OfSize("PoppinsMedium", 14),
+                        Message = "Opsss! You cannot rate if the order is not completed"
+                    },
+                    BackgroundColor = Color.FromHex("#D14C00"),
+                    Duration = TimeSpan.FromSeconds(5),
+                    Actions = new[] { action }
+
+                };
+                Application.Current.MainPage.DisplaySnackBarAsync(options);
+                return;
+            }
             try
             {
                 if (string.IsNullOrWhiteSpace(email))

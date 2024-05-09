@@ -7,6 +7,6 @@ namespace FoodOrderingSystem.Model
 {
     public class APIURL
     {
-        static public string apiurl = "http://192.168.90.57:8080/";
+        static public string apiurl = "http://192.168.254.148:8080/";
     }
 }
