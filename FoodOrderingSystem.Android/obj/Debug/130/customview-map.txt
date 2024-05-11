@@ -1,4 +1,5 @@
 @string/appbar_scrolling_view_behavior;D:\GitHub\FoodOrderingSystem\FoodOrderingSystem.Android\obj\Debug\130\lp\61\jl\res\layout\rootlayout.xml
+adaptive-icon;obj\Debug\130\res\mipmap-anydpi-v26\ic_icon.xml
 adaptive-icon;obj\Debug\130\res\mipmap-anydpi-v26\icon.xml
 adaptive-icon;obj\Debug\130\res\mipmap-anydpi-v26\icon_round.xml
 alpha;D:\GitHub\FoodOrderingSystem\FoodOrderingSystem.Android\obj\Debug\130\lp\61\jl\res\anim\enterfromleft.xml
@@ -11,6 +12,7 @@ androidx.coordinatorlayout.widget.CoordinatorLayout;D:\GitHub\FoodOrderingSystem
 androidx.coordinatorlayout.widget.CoordinatorLayout;D:\GitHub\FoodOrderingSystem\FoodOrderingSystem.Android\obj\Debug\130\lp\61\jl\res\layout\shellcontent.xml
 attr;D:\GitHub\FoodOrderingSystem\FoodOrderingSystem.Android\obj\Debug\130\lp\60\jl\res\values\styles.xml
 attr;D:\GitHub\FoodOrderingSystem\FoodOrderingSystem.Android\obj\Debug\130\lp\61\jl\res\values\attrs.xml
+background;obj\Debug\130\res\mipmap-anydpi-v26\ic_icon.xml
 background;obj\Debug\130\res\mipmap-anydpi-v26\icon.xml
 background;obj\Debug\130\res\mipmap-anydpi-v26\icon_round.xml
 cache-path;D:\GitHub\FoodOrderingSystem\FoodOrderingSystem.Android\obj\Debug\130\lp\59\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
@@ -26,6 +28,7 @@ corners;D:\GitHub\FoodOrderingSystem\FoodOrderingSystem.Android\obj\Debug\130\lp
 declare-styleable;D:\GitHub\FoodOrderingSystem\FoodOrderingSystem.Android\obj\Debug\130\lp\61\jl\res\values\attrs.xml
 external-cache-path;D:\GitHub\FoodOrderingSystem\FoodOrderingSystem.Android\obj\Debug\130\lp\59\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
 external-path;D:\GitHub\FoodOrderingSystem\FoodOrderingSystem.Android\obj\Debug\130\lp\59\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
+foreground;obj\Debug\130\res\mipmap-anydpi-v26\ic_icon.xml
 foreground;obj\Debug\130\res\mipmap-anydpi-v26\icon.xml
 foreground;obj\Debug\130\res\mipmap-anydpi-v26\icon_round.xml
 FrameLayout;D:\GitHub\FoodOrderingSystem\FoodOrderingSystem.Android\obj\Debug\130\lp\58\jl\res\layout\camerafragment.xml
