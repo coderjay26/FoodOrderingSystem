@@ -25,7 +25,7 @@ namespace FoodOrderingSystem.Pages
 
         }
 
-        private List<FoodProduct> _foodProducts;
+       
         private bool _isRefreshing;
 
         public bool IsRefreshing
@@ -51,7 +51,7 @@ namespace FoodOrderingSystem.Pages
             }
         }
 
-
+        private List<FoodProduct> _foodProducts;
         public List<FoodProduct> FoodProducts
         {
             get { return _foodProducts; }
@@ -62,6 +62,15 @@ namespace FoodOrderingSystem.Pages
             }
         }
 
+        private List<FoodProduct> _allfoods;
+        public List<FoodProduct> AllFoods
+        {
+            get { return _allfoods; }
+            set
+            {
+                _allfoods = value; OnPropertyChanged(nameof(AllFoods));
+            }
+        }
         private int _userRating;
         public int UserRating
         {
@@ -79,6 +88,7 @@ namespace FoodOrderingSystem.Pages
             BindingContext = this;
             IsRefreshing = true; // Show refreshing animation
             CheckAndLoadDataAsync();
+            GetAllFoodsAsync();
         }
         private async void FilterFoodItems()
         {
@@ -87,12 +97,14 @@ namespace FoodOrderingSystem.Pages
                 //await FetchAllData();
                 if (string.IsNullOrWhiteSpace(SearchText))
                 {
-
+                    allfoods.IsVisible = true;
                     FoodProducts = _foodProducts;
                     Result.Text = $"Best Food For You";
+
                 }
                 else
                 {
+                    allfoods.IsVisible = false;
                     FoodProducts = _foodProducts
                         .Where(p => p.Name.ToLower().Contains(SearchText.ToLower()))
                         .ToList();
@@ -117,13 +129,14 @@ namespace FoodOrderingSystem.Pages
                 //await FetchAllData();
                 if (string.IsNullOrWhiteSpace(SearchText))
                 {
-
+                    allfoods.IsVisible = true;
                     FoodProducts = _foodProducts;
                     Result.Text = $"Best Food For You";
                 }
                 else
                 {
                     await FetchAllData();
+                    allfoods.IsVisible = false;
                     FoodProducts = _foodProducts
                         .Where(p => p.Name.ToLower().Contains(SearchText.ToLower()))
                         .ToList();
@@ -233,6 +246,7 @@ namespace FoodOrderingSystem.Pages
         {
             IsRefreshing = true; // Show refreshing animation
             await FetchData();
+            await GetAllFoodsAsync();
             IsRefreshing = false; // Hide refreshing animation
         });
         private async void OnItemSelected(object sender, SelectionChangedEventArgs e)
@@ -280,7 +294,48 @@ namespace FoodOrderingSystem.Pages
             {
                await DisplayAlert("Opps", "Something went wrong😢😓😢", "Ok");
             }
-
+        }
+        public async Task GetAllFoodsAsync()
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    if (string.IsNullOrWhiteSpace(email))
+                    {
+                        email = SecureStorage.GetAsync("email").Result;
+                    }
+                    var response = await client.GetAsync($"{APIURL.apiurl}/getfoods.php");
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var content = await response.Content.ReadAsStringAsync();
+                        var data = JsonConvert.DeserializeObject<FoodResponse>(content);
+                        AllFoods = data.Data.Select(foodData => new FoodProduct
+                        {
+                            Id = foodData.Id,
+                            Name = foodData.FoodName,
+                            ImageUrl = APIURL.apiurl + foodData.ImageUrl,
+                            Price = foodData.Price,
+                            Ingredients = foodData.Ingredients,
+                            Description = foodData.Description,
+                            Rate = foodData.Rate
+                        }).ToList();
+                        OnPropertyChanged(nameof(FoodProducts));
+                    }
+                    else
+                    {
+                        await DisplayAlert("Error", "Failed to fetch data", "OK");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", ex.Message, "OK");
+            }
+            finally
+            {
+                IsRefreshing = false; // Hide refreshing animation
+            }
         }
     }
 }

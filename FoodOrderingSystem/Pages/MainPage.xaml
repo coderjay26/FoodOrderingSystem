@@ -1,5 +1,6 @@
 ﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:ffimageloading="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
              xmlns:local="clr-namespace:FoodOrderingSystem.Model"
              x:Class="FoodOrderingSystem.Pages.MainPage">
     <ContentPage.Resources>
@@ -8,13 +9,9 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        
-        <StackLayout
-                     Padding="0, 0, 0, 0">
-            <StackLayout
-                Margin="0, 0, 0, 0"
-                BackgroundColor="White">
-                <StackLayout Orientation="Horizontal" BackgroundColor="#25f86907" Padding="0, 5, 0,10">
+        <StackLayout Padding="0,0,0,0">
+            <StackLayout Margin="0,0,0,0" BackgroundColor="White">
+                <StackLayout Orientation="Horizontal" BackgroundColor="#25f86907" Padding="0,5,0,10">
                     <SearchBar Placeholder="Search for food..." Text="{Binding SearchText, Mode=TwoWay}" WidthRequest="300" FontFamily="PoppinsRegular" SearchButtonPressed="FiteredOnCLick"/>
                     <Label Text="&#xe8cc;" FontFamily="MaterialIconRounded" VerticalOptions="CenterAndExpand" FontSize="28" TextColor="#D14C00" HorizontalOptions="EndAndExpand" Margin="0,0,10,0">
                         <Label.GestureRecognizers>
@@ -22,49 +19,99 @@
                         </Label.GestureRecognizers>
                     </Label>
                 </StackLayout>
-                <Label x:Name="Result" Text="Best Food For You" TextColor="Black" FontSize="Large"  Style="{StaticResource PopBold}" Padding="8, -5, 0, 0"/>
+                
                 <RefreshView IsRefreshing="{Binding IsRefreshing, Mode=OneWay}" Command="{Binding RefreshCommand}">
-                    <CollectionView ItemsSource="{Binding FoodProducts}" SelectionMode="Single" SelectionChanged="OnItemSelected">
-                        <CollectionView.ItemsLayout>
-                            <GridItemsLayout Orientation="Vertical" Span="2" VerticalItemSpacing="10" HorizontalItemSpacing="8"/>
-                        </CollectionView.ItemsLayout>
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate>
-                                <Frame CornerRadius="5" Padding="10,25,10,20" Margin="0" HasShadow="False" BackgroundColor="#15f86907">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                        </Grid.RowDefinitions>
-                                        <ffimageloading:SvgCachedImage Source="{Binding ImageUrl}"
-                                           LoadingPlaceholder="loading_food.gif"
-                                           Aspect="AspectFill"
-                                           WidthRequest="110"
-                                           HeightRequest="155" />
+                    <ScrollView>
+                        <StackLayout>
+                            <StackLayout Margin="0, 0, 0,0" Padding="0,0,0,-200">
+                                <Label x:Name="Result" Text="Best Food For You" TextColor="Black" FontSize="Large"  Style="{StaticResource PopBold}" Padding="8,-5,0,0"/>
+                            <CollectionView x:Name="FoodCollectionView" ItemsSource="{Binding FoodProducts}" SelectionMode="Single" SelectionChanged="OnItemSelected">
+                                <CollectionView.ItemsLayout>
+                                    <GridItemsLayout Orientation="Vertical" Span="2" VerticalItemSpacing="10" HorizontalItemSpacing="8"/>
+                                </CollectionView.ItemsLayout>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Frame CornerRadius="5" Padding="10,25,10,20" Margin="0" HasShadow="False" BackgroundColor="#15f86907">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                <ffimageloading:SvgCachedImage Source="{Binding ImageUrl}"
+                                               LoadingPlaceholder="loading_food.gif"
+                                               Aspect="AspectFill"
+                                               WidthRequest="110"
+                                               HeightRequest="155" />
 
-                                        <Label Grid.Row="1" Text="{Binding Name}" Style="{StaticResource PopBold}" FontSize="16" LineBreakMode="TailTruncation" WidthRequest="150" Margin="0" TextColor="Black"/>
-                                        <StackLayout Grid.Row="2" Orientation="Horizontal">
-                                            <Label Text="{Binding Price, StringFormat='{0:C}'}" FontSize="14" TextColor="#f86907" Style="{StaticResource PopBold}"/>
-                                            <StackLayout Orientation="Horizontal" Padding="0,5,0,0" HorizontalOptions="EndAndExpand">
-                                                <Label Text="&#xe885;" FontFamily="MaterialIconRounded" FontSize="Caption" ClassId="1" TextColor="{Binding Rate, Converter={StaticResource RatingToColor}, ConverterParameter='1'}">
-                                                </Label>
-                                                <Label Text="&#xe885;" FontFamily="MaterialIconRounded" FontSize="Caption" ClassId="2" TextColor="{Binding Rate, Converter={StaticResource RatingToColor}, ConverterParameter='2'}">
-                                                </Label>
-                                                <Label Text="&#xe885;" FontFamily="MaterialIconRounded" FontSize="Caption" ClassId="3" TextColor="{Binding Rate, Converter={StaticResource RatingToColor}, ConverterParameter='3'}">
-                                                </Label>
-                                                <Label Text="&#xe885;" FontFamily="MaterialIconRounded" FontSize="Caption" ClassId="4" TextColor="{Binding Rate, Converter={StaticResource RatingToColor}, ConverterParameter='4'}">
-                                                </Label>
-                                                <Label Text="&#xe885;" FontFamily="MaterialIconRounded" FontSize="Caption" ClassId="5" TextColor="{Binding Rate, Converter={StaticResource RatingToColor}, ConverterParameter='5'}">
-                                                </Label>
-                                            </StackLayout>
-                                        </StackLayout>
-                                        
-                                    </Grid>
-                                </Frame>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
+                                                <Label Grid.Row="1" Text="{Binding Name}" Style="{StaticResource PopBold}" FontSize="16" LineBreakMode="TailTruncation" WidthRequest="150" Margin="0" TextColor="Black"/>
+                                                <StackLayout Grid.Row="2" Orientation="Horizontal">
+                                                    <Label Text="{Binding Price, StringFormat='{0:C}'}" FontSize="14" TextColor="#f86907" Style="{StaticResource PopBold}"/>
+                                                    <StackLayout Orientation="Horizontal" Padding="0,5,0,0" HorizontalOptions="EndAndExpand">
+                                                        <Label Text="&#xe885;" FontFamily="MaterialIconRounded" FontSize="Caption" ClassId="1" TextColor="{Binding Rate, Converter={StaticResource RatingToColor}, ConverterParameter='1'}">
+                                                        </Label>
+                                                        <Label Text="&#xe885;" FontFamily="MaterialIconRounded" FontSize="Caption" ClassId="2" TextColor="{Binding Rate, Converter={StaticResource RatingToColor}, ConverterParameter='2'}">
+                                                        </Label>
+                                                        <Label Text="&#xe885;" FontFamily="MaterialIconRounded" FontSize="Caption" ClassId="3" TextColor="{Binding Rate, Converter={StaticResource RatingToColor}, ConverterParameter='3'}">
+                                                        </Label>
+                                                        <Label Text="&#xe885;" FontFamily="MaterialIconRounded" FontSize="Caption" ClassId="4" TextColor="{Binding Rate, Converter={StaticResource RatingToColor}, ConverterParameter='4'}">
+                                                        </Label>
+                                                        <Label Text="&#xe885;" FontFamily="MaterialIconRounded" FontSize="Caption" ClassId="5" TextColor="{Binding Rate, Converter={StaticResource RatingToColor}, ConverterParameter='5'}">
+                                                        </Label>
+                                                    </StackLayout>
+                                                </StackLayout>
+                                            </Grid>
+                                        </Frame>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </StackLayout>
+                        <StackLayout x:Name="allfoods" IsVisible="True" Margin="0,0,0,-200">
+                            <Label Text="All Menu" TextColor="Black" FontSize="Large"  Style="{StaticResource PopBold}" Padding="8,-5,0,0" />
+                            <CollectionView x:Name="AllFoodsCollectionView" ItemsSource="{Binding AllFoods}" SelectionMode="Single" SelectionChanged="OnItemSelected">
+
+                                <CollectionView.ItemsLayout>
+                                    <GridItemsLayout Orientation="Vertical" Span="2" VerticalItemSpacing="10" HorizontalItemSpacing="8"/>
+                                </CollectionView.ItemsLayout>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Frame CornerRadius="5" Padding="10,25,10,20" Margin="0" HasShadow="False" BackgroundColor="#15f86907">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                <ffimageloading:SvgCachedImage Source="{Binding ImageUrl}"
+                       LoadingPlaceholder="loading_food.gif"
+                       Aspect="AspectFill"
+                       WidthRequest="110"
+                       HeightRequest="155" />
+
+                                                <Label Grid.Row="1" Text="{Binding Name}" Style="{StaticResource PopBold}" FontSize="16" LineBreakMode="TailTruncation" WidthRequest="150" Margin="0" TextColor="Black"/>
+                                                <StackLayout Grid.Row="2" Orientation="Horizontal">
+                                                    <Label Text="{Binding Price, StringFormat='{0:C}'}" FontSize="14" TextColor="#f86907" Style="{StaticResource PopBold}"/>
+                                                    <StackLayout Orientation="Horizontal" Padding="0,5,0,0" HorizontalOptions="EndAndExpand">
+                                                        <Label Text="&#xe885;" FontFamily="MaterialIconRounded" FontSize="Caption" ClassId="1" TextColor="{Binding Rate, Converter={StaticResource RatingToColor}, ConverterParameter='1'}">
+                                                        </Label>
+                                                        <Label Text="&#xe885;" FontFamily="MaterialIconRounded" FontSize="Caption" ClassId="2" TextColor="{Binding Rate, Converter={StaticResource RatingToColor}, ConverterParameter='2'}">
+                                                        </Label>
+                                                        <Label Text="&#xe885;" FontFamily="MaterialIconRounded" FontSize="Caption" ClassId="3" TextColor="{Binding Rate, Converter={StaticResource RatingToColor}, ConverterParameter='3'}">
+                                                        </Label>
+                                                        <Label Text="&#xe885;" FontFamily="MaterialIconRounded" FontSize="Caption" ClassId="4" TextColor="{Binding Rate, Converter={StaticResource RatingToColor}, ConverterParameter='4'}">
+                                                        </Label>
+                                                        <Label Text="&#xe885;" FontFamily="MaterialIconRounded" FontSize="Caption" ClassId="5" TextColor="{Binding Rate, Converter={StaticResource RatingToColor}, ConverterParameter='5'}">
+                                                        </Label>
+                                                    </StackLayout>
+                                                </StackLayout>
+                                            </Grid>
+                                        </Frame>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </StackLayout>
+                        </StackLayout>
+                    </ScrollView>
                 </RefreshView>
             </StackLayout>
         </StackLayout>
